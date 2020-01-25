@@ -1,5 +1,6 @@
 export GOPATH=$HOME/Development/go
 export PATH=$HOME/bin:$GOPATH/bin:$PATH
+export EDITOR='vim'
 
 if [ -f $HOME/.bash_aliases ]
 then
@@ -12,6 +13,24 @@ if [ -S "${HOME}/.gnupg/S.gpg-agent" ]; then
   export GPG_TTY=$(tty)
   export SSH_AUTH_SOCK=$( gpgconf --list-dirs agent-ssh-socket )
 fi
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias gd='git diff'
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gs='git status'
+alias gau='git add -u'
+alias gaa='git add -A'
+alias gcm='git commit -m '
+alias gca='git commit --amend'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gp='git pull'
+alias gpf='git push --force'
+alias gr='git restore'
+alias python='python3'
+alias pip='pip3'
 
 # Eternal bash history.
 # ---------------------
