@@ -31,6 +31,18 @@ def install_github_bundle(user, package)
   end
 end
 
+def install_tmux_tpm
+  unless File.exist? File.expand_path("~/.tmux/plugins/tpm")
+    sh "git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
+  end
+end
+
+def install_powerline
+  output = `pip list --user`
+  return unless output.include?('powerline-status')
+  sh "pip install --user powerline-status"
+end
+
 def brew_cask_install(package, *options)
   output = `brew cask info #{package}`
   return unless output.include?('Not installed')
@@ -131,9 +143,9 @@ namespace :install do
   task :brew_cask do
     step 'Homebrew Cask'
     system('brew untap phinze/cask') if system('brew tap | grep phinze/cask > /dev/null')
-    unless system('brew tap | grep caskroom/cask > /dev/null') || system('brew tap caskroom/cask')
-      abort "Failed to tap caskroom/cask in Homebrew."
-    end
+    #unless system('brew tap | grep caskroom/cask > /dev/null') || system('brew tap caskroom/cask')
+    #  abort "Failed to tap caskroom/cask in Homebrew."
+    #end
   end
 
   desc 'Install The Silver Searcher'
@@ -167,6 +179,7 @@ namespace :install do
     step 'tmux'
     # tmux copy-pipe function needs tmux >= 1.8
     brew_install 'tmux', :requires => '>= 2.1'
+    install_tmux_tpm
   end
 
   desc 'Install MacVim'
@@ -204,9 +217,17 @@ exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
     install_github_bundle 'VundleVim','Vundle.vim'
     sh '~/bin/vim -c "PluginInstall!" -c "q" -c "q"'
   end
+
+  desc 'Install Powerline'
+  task :powerline do
+    step 'powerline'
+    brew_install 'python'
+    install_powerline
+  end
 end
 
-def filemap(map)
+def filemap(map = {})
+  return {} if map.empty?
   map.inject({}) do |result, (key, value)|
     result[File.expand_path(key)] = File.expand_path(value)
     result
@@ -214,16 +235,16 @@ def filemap(map)
 end
 
 COPIED_FILES = filemap(
-  'vimrc.local'         => '~/.vimrc.local',
-  'vimrc.bundles.local' => '~/.vimrc.bundles.local',
-  'tmux.conf.local'     => '~/.tmux.conf.local'
 )
 
 LINKED_FILES = filemap(
   'vim'           => '~/.vim',
   'tmux.conf'     => '~/.tmux.conf',
   'vimrc'         => '~/.vimrc',
-  'vimrc.bundles' => '~/.vimrc.bundles'
+  'vimrc.bundles' => '~/.vimrc.bundles',
+  'vimrc.local'         => '~/.vimrc.local',
+  'vimrc.bundles.local' => '~/.vimrc.bundles.local',
+  'tmux.conf.local'     => '~/.tmux.conf.local'
 )
 
 desc 'Install these config files.'
@@ -236,6 +257,7 @@ task :install do
   Rake::Task['install:reattach_to_user_namespace'].invoke
   Rake::Task['install:tmux'].invoke
   Rake::Task['install:macvim'].invoke
+  Rake::Task['install:powerline'].invoke
 
   # TODO install gem ctags?
   # TODO run gem ctags?
