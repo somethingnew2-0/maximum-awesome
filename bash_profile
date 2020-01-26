@@ -1,5 +1,6 @@
 export GOPATH=$HOME/Development/go
 export PATH=$HOME/bin:$GOPATH/bin:$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR='vim'
 
 if [ -f $HOME/.bash_aliases ]
