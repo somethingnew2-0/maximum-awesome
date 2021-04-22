@@ -1,1 +1,2 @@
 Plugin 'tpope/vim-obsession'
+Plugin 'fatih/vim-go'

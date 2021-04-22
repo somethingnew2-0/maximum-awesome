@@ -9,7 +9,7 @@ inoremap jj <ESC>
 
 " gui settings
 if (&t_Co == 256 || has('gui_running'))
-  if ($TERM_PROGRAM == 'iTerm.app')
+  if ($TERM_PROGRAM == 'iTerm.app' || $TERM_PROGRAM == 'tmux')
     colorscheme solarized
   else
     colorscheme desert
@@ -36,3 +36,9 @@ silent! autocmd VimEnter * RemoveConflictingAlignMaps
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
+
+autocmd BufNewFile,BufRead *.ipd set filetype=python
+autocmd BufNewFile,BufRead *.star set filetype=yaml
+
+autocmd FileType tf setlocal commentstring=#\ %s
+
