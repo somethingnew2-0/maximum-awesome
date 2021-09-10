@@ -246,7 +246,8 @@ LINKED_FILES = filemap(
   'vimrc.bundles.local' => '~/.vimrc.bundles.local',
   'tmux.conf.local'     => '~/.tmux.conf.local',
   'gpg.conf' => '~/.gnupg/gpg.conf',
-  'gpg-agent.conf' => '~/.gnupg/gpg-agent.conf'
+  'gpg-agent.conf' => '~/.gnupg/gpg-agent.conf',
+  'scdaemon.conf' => '~/.gnupg/scdaemon.conf'
 )
 
 desc 'Install these config files.'
