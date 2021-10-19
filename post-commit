@@ -1,0 +1,6 @@
+#!/bin/sh
+### lolcommits hook (begin) ###
+export PATH="/usr/bin:/usr/local/bin:$PATH"
+export LOLCOMMITS_DIR="$HOME/Pictures/lolcommits"
+lolcommits --capture --delay=2
+###  lolcommits hook (end)  ###
