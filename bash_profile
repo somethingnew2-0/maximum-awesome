@@ -15,6 +15,7 @@ if [ -S "${HOME}/.gnupg/S.gpg-agent" ]; then
   export SSH_AUTH_SOCK=$( gpgconf --list-dirs agent-ssh-socket )
 fi
 
+alias ls='ls -G'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'

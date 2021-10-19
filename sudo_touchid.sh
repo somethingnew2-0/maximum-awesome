@@ -14,7 +14,7 @@ touchid_sudo(){
   # (where 1 is the number of backups, so that rerunning this doesn't make you lose your original)
   bak=$(dirname $file)/.$(basename $file).$(echo $(ls $(dirname $file)/{,.}$(basename $file)* | wc -l))
   cp $file $bak
-  awk -v is_done='pam_tid' -v rule='auth       sufficient     pam_tid.so' '
+  awk -v is_done='pam_tid' -v rule='auth       optional       pam_reattach.so\nauth       sufficient     pam_tid.so' '
   {
     # $1 is the first field
     # !~ means "does not match pattern"

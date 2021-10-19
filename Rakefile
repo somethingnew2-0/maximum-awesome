@@ -44,10 +44,10 @@ def install_powerline
 end
 
 def brew_cask_install(package, *options)
-  output = `brew cask info #{package}`
+  output = `brew info --cask #{package}`
   return unless output.include?('Not installed')
 
-  sh "brew cask install #{package} #{options.join ' '}"
+  sh "brew install --cask #{package} #{options.join ' '}"
 end
 
 def step(description)
@@ -174,6 +174,12 @@ namespace :install do
     brew_install 'reattach-to-user-namespace'
   end
 
+  desc 'Install pam_reattach'
+  task :pam_reattach do
+    step 'pam_reattach'
+    brew_install 'fabianishere/personal/pam_reattach'
+  end
+
   desc 'Install tmux'
   task :tmux do
     step 'tmux'
@@ -182,33 +188,10 @@ namespace :install do
     install_tmux_tpm
   end
 
-  desc 'Install MacVim'
-  task :macvim do
-    step 'MacVim'
-    unless app? 'MacVim'
-      brew_cask_install 'macvim'
-    end
-
-    bin_dir = File.expand_path('~/bin')
-    bin_vim = File.join(bin_dir, 'vim')
-    unless ENV['PATH'].split(':').include?(bin_dir)
-      puts 'Please add ~/bin to your PATH, e.g. run this command:'
-      puts
-      puts %{  echo 'export PATH="~/bin:$PATH"' >> ~/.bashrc}
-      puts
-      puts 'The exact command and file will vary by your shell and configuration.'
-      puts 'You may need to restart your shell.'
-    end
-
-    FileUtils.mkdir_p(bin_dir)
-    unless File.executable?(bin_vim)
-      File.open(bin_vim, 'w', 0744) do |io|
-        io << <<-SHELL
-#!/bin/bash
-exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
-        SHELL
-      end
-    end
+  desc 'Install vim'
+  task :vim do
+    step 'vim'
+    brew_install 'vim'
   end
 
   desc 'Install Vundle'
@@ -248,7 +231,9 @@ LINKED_FILES = filemap(
   'gpg.conf' => '~/.gnupg/gpg.conf',
   'gpg-agent.conf' => '~/.gnupg/gpg-agent.conf',
   'scdaemon.conf' => '~/.gnupg/scdaemon.conf',
-  'bash_profile' => '~/.bash_profile'
+  'bash_profile' => '~/.bash_profile',
+  'post-commit' => '~/.git_template/hooks/post-commit',
+  'pre-commit' => '~/.git_template/hooks/pre-commit',
 )
 
 desc 'Install these config files.'
