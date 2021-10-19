@@ -38,9 +38,9 @@ def install_tmux_tpm
 end
 
 def install_powerline
-  output = `pip list --user`
-  return unless output.include?('powerline-status')
-  sh "pip install --user powerline-status"
+  output = `pip3 list`
+  return if output.include?('powerline-status')
+  sh "pip3 install powerline-status"
 end
 
 def brew_cask_install(package, *options)
@@ -215,7 +215,7 @@ exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
   task :vundle do
     step 'vundle'
     install_github_bundle 'VundleVim','Vundle.vim'
-    sh '~/bin/vim -c "PluginInstall!" -c "q" -c "q"'
+    sh 'vim -c "PluginInstall!" -c "q" -c "q"'
   end
 
   desc 'Install Powerline'
@@ -247,19 +247,20 @@ LINKED_FILES = filemap(
   'tmux.conf.local'     => '~/.tmux.conf.local',
   'gpg.conf' => '~/.gnupg/gpg.conf',
   'gpg-agent.conf' => '~/.gnupg/gpg-agent.conf',
-  'scdaemon.conf' => '~/.gnupg/scdaemon.conf'
+  'scdaemon.conf' => '~/.gnupg/scdaemon.conf',
+  'bash_profile' => '~/.bash_profile'
 )
 
 desc 'Install these config files.'
 task :install do
   Rake::Task['install:brew'].invoke
   Rake::Task['install:brew_cask'].invoke
-  Rake::Task['install:the_silver_searcher'].invoke
+  # Rake::Task['install:the_silver_searcher'].invoke
   Rake::Task['install:iterm'].invoke
   Rake::Task['install:ctags'].invoke
   Rake::Task['install:reattach_to_user_namespace'].invoke
   Rake::Task['install:tmux'].invoke
-  Rake::Task['install:macvim'].invoke
+  # Rake::Task['install:macvim'].invoke
   Rake::Task['install:powerline'].invoke
 
   # TODO install gem ctags?

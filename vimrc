@@ -114,6 +114,7 @@ endif
 " Don't copy the contents of an overwritten selection.
 vnoremap p "_dP
 
+let g:snipMate = { 'snippet_version' : 1 }
 " Go crazy!
 if filereadable(expand("~/.vimrc.local"))
   " In your .vimrc.local, you might like:
