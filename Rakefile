@@ -50,7 +50,7 @@ def brew_cask_install(package, *options)
   sh "brew install --cask #{package} #{options.join ' '}"
 end
 
-def step(description)
+def step(description)c
   description = "-- #{description} "
   description = description.ljust(80, '-')
   puts
@@ -148,12 +148,6 @@ namespace :install do
     #end
   end
 
-  desc 'Install The Silver Searcher'
-  task :the_silver_searcher do
-    step 'the_silver_searcher'
-    brew_install 'the_silver_searcher'
-  end
-
   desc 'Install iTerm'
   task :iterm do
     step 'iterm2'
@@ -240,12 +234,12 @@ desc 'Install these config files.'
 task :install do
   Rake::Task['install:brew'].invoke
   Rake::Task['install:brew_cask'].invoke
-  # Rake::Task['install:the_silver_searcher'].invoke
   Rake::Task['install:iterm'].invoke
   Rake::Task['install:ctags'].invoke
   Rake::Task['install:reattach_to_user_namespace'].invoke
+  Rake::Task['install:pam_reattach'].invoke
   Rake::Task['install:tmux'].invoke
-  # Rake::Task['install:macvim'].invoke
+  Rake::Task['install:vim'].invoke
   Rake::Task['install:powerline'].invoke
 
   # TODO install gem ctags?

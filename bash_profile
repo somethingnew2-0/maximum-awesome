@@ -1,7 +1,10 @@
-export GOPATH=$HOME/Development/go
-export PATH=$HOME/bin:$GOPATH/bin:$PATH
-export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR='vim'
+
+export GOPATH=$HOME/Development/go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$HOME/bin:$GOPATH/bin:$PATH$:{GOROOT}/bin
+
+source $HOME/.cargo/env
 
 if [ -f $HOME/.bash_aliases ]
 then
