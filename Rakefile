@@ -50,7 +50,7 @@ def brew_cask_install(package, *options)
   sh "brew install --cask #{package} #{options.join ' '}"
 end
 
-def step(description)c
+def step(description)
   description = "-- #{description} "
   description = description.ljust(80, '-')
   puts
@@ -226,6 +226,7 @@ LINKED_FILES = filemap(
   'gpg-agent.conf' => '~/.gnupg/gpg-agent.conf',
   'scdaemon.conf' => '~/.gnupg/scdaemon.conf',
   'bash_profile' => '~/.bash_profile',
+  'bash_aliases' => '~/.bash_aliases',
   'post-commit' => '~/.git_template/hooks/post-commit',
   'pre-commit' => '~/.git_template/hooks/pre-commit',
 )

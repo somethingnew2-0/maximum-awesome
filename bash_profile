@@ -2,9 +2,10 @@ export EDITOR='vim'
 
 export GOPATH=$HOME/Development/go
 export GOROOT=/usr/local/opt/go/libexec
-export PATH=$HOME/bin:$GOPATH/bin:$PATH$:{GOROOT}/bin
+export PATH=$HOME/bin:$GOPATH/bin:$PATH:$GOROOT/bin
 
-source $HOME/.cargo/env
+if [ -e $HOME/.cargo/env ]; then source $HOME/.cargo/env; fi
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then source $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 
 if [ -f $HOME/.bash_aliases ]
 then
