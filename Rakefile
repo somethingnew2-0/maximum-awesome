@@ -168,10 +168,10 @@ namespace :install do
     brew_install 'reattach-to-user-namespace'
   end
 
-  desc 'Install pam_reattach'
-  task :pam_reattach do
-    step 'pam_reattach'
-    brew_install 'fabianishere/personal/pam_reattach'
+  desc 'Install bash'
+  task :bash do
+    step 'bash'
+    brew_install 'bash'
   end
 
   desc 'Install tmux'
@@ -229,6 +229,7 @@ LINKED_FILES = filemap(
   'bash_aliases' => '~/.bash_aliases',
   'post-commit' => '~/.git_template/hooks/post-commit',
   'pre-commit' => '~/.git_template/hooks/pre-commit',
+  'sudo_local' => '/etc/pam.d/sudo_local',
 )
 
 desc 'Install these config files.'
@@ -238,7 +239,7 @@ task :install do
   Rake::Task['install:iterm'].invoke
   Rake::Task['install:ctags'].invoke
   Rake::Task['install:reattach_to_user_namespace'].invoke
-  Rake::Task['install:pam_reattach'].invoke
+  Rake::Task['install:bash'].invoke
   Rake::Task['install:tmux'].invoke
   Rake::Task['install:vim'].invoke
   Rake::Task['install:powerline'].invoke

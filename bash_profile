@@ -4,8 +4,16 @@ export GOPATH=$HOME/Development/go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$HOME/bin:$GOPATH/bin:$PATH:$GOROOT/bin
 
+export HOMEBREW_PREFIX="/opt/homebrew";
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+export HOMEBREW_REPOSITORY="/opt/homebrew";
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+
+
 if [ -e $HOME/.cargo/env ]; then source $HOME/.cargo/env; fi
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then source $HOME/.nix-profile/etc/profile.d/nix.sh; fi
+# if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then source $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 
 if [ -f $HOME/.bash_aliases ]
 then
@@ -13,11 +21,11 @@ then
 fi
 
 # vim: filetype=sh
-gpgconf --launch gpg-agent
-if [ -S "${HOME}/.gnupg/S.gpg-agent" ]; then
-  export GPG_TTY=$(tty)
-  export SSH_AUTH_SOCK=$( gpgconf --list-dirs agent-ssh-socket )
-fi
+# gpgconf --launch gpg-agent
+# if [ -S "${HOME}/.gnupg/S.gpg-agent" ]; then
+#   export GPG_TTY=$(tty)
+#   export SSH_AUTH_SOCK=$( gpgconf --list-dirs agent-ssh-socket )
+# fi
 
 alias ls='ls -G'
 alias ll='ls -alF'
